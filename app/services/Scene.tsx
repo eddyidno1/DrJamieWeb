@@ -155,6 +155,9 @@ function Tooth({ services, hovered, active, onHover, onSelect }: Props) {
         const p = positions[s.id];
         if (!p) return null;
         const dim = active !== null; // hide labels while a panel is open
+        // Flip the label toward the tooth's centre so it never runs off-screen:
+        // nodes on the right half get a left-flowing label and vice-versa.
+        const labelLeft = p[0] > 0;
         return (
           <group key={s.id} position={p}>
             <mesh>
@@ -166,7 +169,7 @@ function Tooth({ services, hovered, active, onHover, onSelect }: Props) {
                 type="button"
                 className={`svc-node${hovered === s.id ? " is-hover" : ""}${
                   dim ? " is-dim" : ""
-                }`}
+                }${labelLeft ? " svc-node--left" : ""}`}
                 style={{ pointerEvents: dim ? "none" : "auto" }}
                 onMouseEnter={() => onHover(s.id)}
                 onMouseLeave={() => onHover(null)}
