@@ -6,9 +6,9 @@ import { gsap, useGSAP } from "@/lib/gsap";
 import MaskedText from "@/components/MaskedText";
 
 const PRACTICE = [
-  "SO Dental Surgery was established in Chatswood over twenty years ago by our principal dentist Dr. Yuen-To (Samson) So, previously located at the interchange. Today we have two modern practices in Chatswood: at the Lemon Grove Centre next to Chatswood railway station, and on Hercules St at Chatswood Place.",
+  "So Dental Surgery was established in Chatswood over twenty years ago by our principal dentist Dr. Yuen-To (Samson) So, previously located at the interchange. Today we have two modern practices in Chatswood: at the Lemon Grove Centre next to Chatswood railway station, and on Hercules St at Chatswood Place.",
   "We aim to be the friendliest and the best dental practice in Chatswood. Both clinics are fully accredited and equipped with the latest technology to provide you with the best care possible.",
-  "What sets SO Dental Chatswood apart is the dedication of our team to providing personalised service, prioritising your comfort and well-being at all times. Our team is multilingual and speaks English, Mandarin and Cantonese fluently.",
+  "What sets So Dental Chatswood apart is the dedication of our team to providing personalised service, prioritising your comfort and well-being at all times. Our team is multilingual and speaks English, Mandarin and Cantonese fluently.",
 ];
 
 const JAMIE = [
@@ -114,21 +114,21 @@ export default function AboutContent() {
           <p className="about__intro">
             A health professional of more than 13 years, with degrees in
             Pharmacy and Dental Medicine from the University of Sydney —
-            dedicated to gentle, patient-first care at SO Dental in Chatswood.
+            dedicated to gentle, patient-first care at So Dental in Chatswood.
           </p>
         </div>
 
         <div className="about__photo" ref={photo}>
-          <img src="/Reception.avif" alt="SO Dental reception" />
+          <img src="/Reception.avif" alt="So Dental reception" />
         </div>
       </section>
 
-      {/* ---------- About SO Dental ---------- */}
+      {/* ---------- About So Dental ---------- */}
       <section className="about__section">
         <div className="about__side">
           <span className="about__num">01 — The practice</span>
           <MaskedText
-            text="About SO Dental"
+            text="About So Dental"
             as="h2"
             className="about__heading"
           />

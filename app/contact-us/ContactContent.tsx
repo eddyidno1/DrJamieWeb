@@ -13,13 +13,13 @@ const DIRECT = [
     href: "mailto:drjamielam@gmail.com",
   },
   {
-    who: "SO Dental",
+    who: "So Dental",
     label: "Call the practice",
     value: "(02) 9413 1446",
     href: "tel:+61294131446",
   },
   {
-    who: "SO Dental",
+    who: "So Dental",
     label: "General enquiries",
     value: "info@sodental.com.au",
     href: "mailto:info@sodental.com.au",
@@ -29,7 +29,7 @@ const DIRECT = [
 const LOCATIONS = [
   {
     num: "01",
-    name: "SO Dental Hercules St",
+    name: "So Dental Chatswood Place",
     address: "54 Hercules St, Chatswood NSW 2067",
     phone: "(02) 9413 1446",
     phoneHref: "tel:+61294131446",
@@ -40,7 +40,7 @@ const LOCATIONS = [
   },
   {
     num: "02",
-    name: "SO Dental Lemon Grove",
+    name: "So Dental Lemon Grove",
     address:
       "Shop 37, Lemon Grove Shopping Centre, 431 Victoria Ave, Chatswood NSW 2067",
     phone: "(02) 9413 1446",

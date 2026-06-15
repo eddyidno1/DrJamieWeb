@@ -85,7 +85,7 @@ export default function ReviewsContent() {
         <p className="rv-hero__intro">
           Don’t just take our word for it. Here’s a selection of what patients
           across Chatswood say about their care with Dr Jamie Lam and the team at
-          SO Dental — drawn from our Google reviews.
+          So Dental — drawn from our Google reviews.
         </p>
 
         <div className="rv-stats">

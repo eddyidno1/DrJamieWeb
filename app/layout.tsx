@@ -25,15 +25,15 @@ const ibmPlexSans = IBM_Plex_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Dr Jamie Lam — Family Dentist | SO Dental, Chatswood",
-    template: "%s | Dr Jamie Lam — SO Dental",
+    default: "Dr Jamie Lam — Family Dentist | So Dental, Chatswood",
+    template: "%s | Dr Jamie Lam — So Dental",
   },
   description:
-    "Meet your new family dentist. Dr Jamie Lam provides gentle, patient-first dental care at SO Dental in Chatswood — comprehensive exams, cosmetic dentistry, implants, Invisalign and more.",
+    "Meet your new family dentist. Dr Jamie Lam provides gentle, patient-first dental care at So Dental in Chatswood — comprehensive exams, cosmetic dentistry, implants, Invisalign and more.",
   openGraph: {
-    title: "Dr Jamie Lam — Family Dentist | SO Dental, Chatswood",
+    title: "Dr Jamie Lam — Family Dentist | So Dental, Chatswood",
     description:
-      "Meet your new family dentist. Gentle, patient-first dental care at SO Dental in Chatswood.",
+      "Meet your new family dentist. Gentle, patient-first dental care at So Dental in Chatswood.",
     type: "website",
   },
 };
