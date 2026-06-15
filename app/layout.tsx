@@ -24,9 +24,18 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Motto® — Ideas Worth Rallying Around",
+  title: {
+    default: "Dr Jamie Lam — Family Dentist | SO Dental, Chatswood",
+    template: "%s | Dr Jamie Lam — SO Dental",
+  },
   description:
-    "Motto is a branding and culture consultancy for tech and innovation companies. We partner with founders to turn bold vision into brand impact.",
+    "Meet your new family dentist. Dr Jamie Lam provides gentle, patient-first dental care at SO Dental in Chatswood — comprehensive exams, cosmetic dentistry, implants, Invisalign and more.",
+  openGraph: {
+    title: "Dr Jamie Lam — Family Dentist | SO Dental, Chatswood",
+    description:
+      "Meet your new family dentist. Gentle, patient-first dental care at SO Dental in Chatswood.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

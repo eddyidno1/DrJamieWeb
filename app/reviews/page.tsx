@@ -1,6 +1,6 @@
 import { BOOKING_URL } from "@/lib/booking";
 
-export const metadata = { title: "Reviews — Dr Jamie Lam" };
+export const metadata = { title: "Reviews" };
 
 export default function Reviews() {
   return (
