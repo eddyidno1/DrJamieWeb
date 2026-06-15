@@ -92,6 +92,24 @@ export default function ServicesClient() {
         Hover a service · click to explore
       </p>
 
+      {/* Mobile-only legend: touch has no hover, so list the services as tappable
+          chips. The red dots on the tooth stay as positional markers. */}
+      <div className={`services__legend${active ? " is-hidden" : ""}`}>
+        <span className="services__legendLabel">Tap a service to explore</span>
+        <div className="services__chips">
+          {SERVICES.map((s) => (
+            <button
+              key={s.id}
+              type="button"
+              className="services__chip"
+              onClick={() => setActive(s.id)}
+            >
+              {s.title}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <aside
         className={`services__panel${active ? " is-open" : ""}`}
         aria-hidden={!active}
