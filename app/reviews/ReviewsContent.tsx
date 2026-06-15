@@ -7,9 +7,9 @@ import { REVIEWS } from "@/lib/reviews";
 import { BOOKING_URL } from "@/lib/booking";
 
 const STATS = [
-  { to: REVIEWS.length, decimals: 0, suffix: "", label: "Patient reviews" },
-  { to: 5, decimals: 1, suffix: "★", label: "Average rating" },
-  { to: 100, decimals: 0, suffix: "%", label: "Would recommend" },
+  { to: 4.9, decimals: 1, suffix: "★", label: "Google rating" },
+  { to: 320, decimals: 0, suffix: "+", label: "Google reviews" },
+  { to: 13, decimals: 0, suffix: "+", label: "Years of care" },
 ];
 
 function Stars() {
@@ -83,8 +83,9 @@ export default function ReviewsContent() {
         <span className="rv-hero__eyebrow eyebrow">Reviews</span>
         <MaskedText text="Kind words" as="h1" className="rv-hero__title" />
         <p className="rv-hero__intro">
-          Don’t just take our word for it — here’s what patients across Chatswood
-          say about their care with Dr Jamie Lam and the team at SO Dental.
+          Don’t just take our word for it. Here’s a selection of what patients
+          across Chatswood say about their care with Dr Jamie Lam and the team at
+          SO Dental — drawn from our Google reviews.
         </p>
 
         <div className="rv-stats">
@@ -119,7 +120,7 @@ export default function ReviewsContent() {
               </span>
               <span className="rv-card__meta">
                 <b>{r.name}</b>
-                <span>{r.year} · Verified patient</span>
+                <span>Google review · {r.year}</span>
               </span>
             </footer>
           </article>
