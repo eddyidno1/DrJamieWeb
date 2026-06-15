@@ -119,7 +119,7 @@ export default function AboutContent() {
         </div>
 
         <div className="about__photo" ref={photo}>
-          <img src="/reception.avif" alt="SO Dental reception" />
+          <img src="/Reception.avif" alt="SO Dental reception" />
         </div>
       </section>
 
