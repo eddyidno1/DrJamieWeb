@@ -48,7 +48,7 @@ export default function ClientMarquee() {
   return (
     <section className="marquee" ref={root}>
       <div className="marquee__label">
-        <span className="eyebrow">Trusted by</span>
+        <span className="eyebrow">Technology &amp; Memberships</span>
       </div>
       <div className="marquee__track" ref={track}>
         {[0, 1].map((copy) =>
