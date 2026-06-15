@@ -49,12 +49,13 @@ export default function ScrollVideo() {
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Near full-bleed: keep (almost) the full window width and clamp the
-    // height to the viewport, cropping via object-fit if 16:9 is too tall.
+    // The "hold" rect. Desktop: near full-bleed, centred. Mobile: keep the
+    // START size (no enlargement) — the video just rides to the centre at its
+    // original size and then shrinks into the heading.
     const fullRect = (): Rect => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const width = vw * widthFactor();
+      const width = isMobile() ? toRect(start).width : vw * widthFactor();
       const height = Math.min((width * 9) / 16, vh * 0.9);
       return { left: (vw - width) / 2, top: (vh - height) / 2, width, height };
     };

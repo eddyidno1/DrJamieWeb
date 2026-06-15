@@ -460,8 +460,13 @@ html.custom-cursor-active * {
   height: 26vh;
 }
 @media (max-width: 768px) {
+  /* No enlargement on mobile → less scroll room needed; tightens the gap
+     between the "I understand…" paragraph and the "Guiding…" heading. */
   .scrollvideo-spacer {
-    height: 6.5vh;
+    height: 2.5vh;
+  }
+  .section.philosophy {
+    padding-top: clamp(1.5rem, 5vw, 2.5rem);
   }
 }
 /* End slot: inline placeholder inside the philosophy lead; reserves the gap the
