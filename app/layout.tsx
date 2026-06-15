@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
 import Header from "@/components/Header";
+import StructuredData from "@/components/StructuredData";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -49,6 +50,7 @@ export default function RootLayout({
       className={`${archivo.variable} ${inter.variable} ${ibmPlexSans.variable}`}
     >
       <body>
+        <StructuredData />
         <CustomCursor />
         <SmoothScroll>
           <Header />
