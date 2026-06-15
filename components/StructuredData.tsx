@@ -1,7 +1,6 @@
 // JSON-LD structured data: tells search engines this is a dental practice with
 // two Chatswood clinics. Powers Google's local/business rich results.
-// NOTE: update SITE_URL if you add a custom domain.
-const SITE_URL = "https://dr-jamie-web.vercel.app";
+import { SITE_URL } from "@/lib/site";
 
 const PHONE = "+61294131446";
 const EMAIL = "info@sodental.com.au";

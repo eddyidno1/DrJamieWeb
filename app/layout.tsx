@@ -5,6 +5,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
 import Header from "@/components/Header";
 import StructuredData from "@/components/StructuredData";
+import { SITE_URL } from "@/lib/site";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -25,6 +26,7 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Dr Jamie Lam — Family Dentist | So Dental, Chatswood",
     template: "%s | Dr Jamie Lam — So Dental",
