@@ -86,6 +86,8 @@ export default function SelectedWork() {
             className="work__row"
             href={`/services?service=${p.id}`}
             key={p.name}
+            target="_blank"
+            rel="noopener noreferrer"
             data-cursor="invert"
             onMouseEnter={() => show(p.img)}
             onMouseLeave={hide}
