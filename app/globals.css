@@ -480,6 +480,15 @@ html.custom-cursor-active * {
   aspect-ratio: 16 / 9;
   margin: 0 0.18em;
 }
+@media (max-width: 768px) {
+  /* Mobile: collapsed by default so "journey and" reads as a normal sentence;
+     ScrollVideo opens it to media width as the video shrinks in. */
+  .philosophy__videoslot {
+    aspect-ratio: auto;
+    width: 0;
+    margin-left: 0;
+  }
+}
 
 /* ============================================================
    Video reveal (pinned full-bleed scale sequence)

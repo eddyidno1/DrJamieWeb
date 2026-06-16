@@ -70,6 +70,28 @@ export default function ScrollVideo() {
         autoAlpha: 1,
       });
 
+    // MOBILE ONLY: the inline end slot starts collapsed (so "journey and" reads
+    // as a normal sentence) and opens to media width as the shrink progresses,
+    // gently pushing "and getting to know me" to the right. Desktop keeps the
+    // slot at its natural full width (controlled by CSS) — unchanged.
+    let slotFontPx = 16;
+    let slotFullW = 0;
+    const measureSlot = () => {
+      slotFontPx = parseFloat(getComputedStyle(end).fontSize) || 16;
+      slotFullW = slotFontPx * (16 / 9); // 16:9 of the 1em-tall slot
+    };
+    const setSlot = (t: number) => {
+      if (!isMobile()) {
+        end.style.width = ""; // desktop: let CSS hold the slot at full width
+        end.style.marginRight = "";
+        return;
+      }
+      // -1 space when collapsed (words touch) → a normal gap when open.
+      const space = 0.25 * slotFontPx;
+      end.style.width = `${t * slotFullW}px`;
+      end.style.marginRight = `${lerp(-space, 0.18 * slotFontPx, t)}px`;
+    };
+
     const clamp01 = (n: number) => Math.min(Math.max(n, 0), 1);
 
     // Map a document scroll position to this trigger's progress.
@@ -81,6 +103,7 @@ export default function ScrollVideo() {
     let pHold = 0; // paragraph fully visible → expand
     let pContract = 1; // "Ideas that" heading visible → contract
     const computeGates = (self: ScrollTrigger) => {
+      measureSlot();
       const para = document.getElementById("sv-para");
       const lead = document.getElementById("sv-lead");
       if (para) {
@@ -111,14 +134,19 @@ export default function ScrollVideo() {
 
     const update = (p: number) => {
       if (reduced) {
+        setSlot(1);
         apply(toRect(end));
         return;
       }
-      const s = toRect(start);
-      const e = toRect(end);
-      const f = fullRect();
       const pExpandEnd = Math.min(pHold + expandDur(), 1);
       const pContractEnd = Math.min(pContract + contractDur(), 1);
+      // How far into the shrink we are (0 before, 1 after) — drives the slot.
+      const contractT = clamp01((p - pContract) / (pContractEnd - pContract || 1));
+      setSlot(contractT);
+
+      const s = toRect(start);
+      const e = toRect(end); // reflects the just-set slot width
+      const f = fullRect();
 
       let r: Rect;
       if (p <= pHold) {
