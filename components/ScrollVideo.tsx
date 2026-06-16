@@ -194,7 +194,15 @@ export default function ScrollVideo() {
 
   return (
     <div ref={box} className="scrollvideo" aria-hidden="true">
-      <video src="/dental.mp4" autoPlay muted loop playsInline preload="auto" />
+      <video
+        src="/dental.mp4"
+        poster="/dental-poster.webp"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      />
     </div>
   );
 }
