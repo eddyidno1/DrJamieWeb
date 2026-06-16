@@ -8,32 +8,32 @@ const PROJECTS = [
   {
     name: "Cosmetic Dentistry",
     meta: "Veneers, whitening & smile design",
-    img: "/cosmetic.png",
+    img: "/cosmetic.avif",
   },
   {
     name: "Implants",
     meta: "Permanent tooth replacement",
-    img: "/implants.png",
+    img: "/implants.avif",
   },
   {
     name: "Root Canal Treatment",
     meta: "Saving infected & damaged teeth",
-    img: "/rootcanal.png",
+    img: "/rootcanal.avif",
   },
   {
     name: "Extraction",
     meta: "Simple & surgical removal",
-    img: "/extraction.png",
+    img: "/extraction.avif",
   },
   {
     name: "Invisalign",
     meta: "Clear aligner orthodontics",
-    img: "/invisalign.png",
+    img: "/invisalign.avif",
   },
   {
     name: "Other Services",
     meta: "Check-ups, cleans & hygiene",
-    img: "/services.png",
+    img: "/services.avif",
   },
 ];
 
