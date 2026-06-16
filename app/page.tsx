@@ -21,23 +21,6 @@ export default function Home() {
       <Press />
       <Testimonials />
       <MethodOutro />
-      <footer className="footer">
-        <span className="footer__logo">Dr Jamie Lam</span>
-        <div className="footer__locations">
-          <div className="footer__location">
-            <p className="footer__name">So Dental Lemon Grove</p>
-            <p className="footer__address">
-              Shop 37, Lemon Grove Centre, 431 Victoria Ave, Chatswood NSW 2067
-            </p>
-          </div>
-          <div className="footer__location">
-            <p className="footer__name">So Dental Chatswood Place</p>
-            <p className="footer__address">
-              Centre for Advanced Dentistry, 54 Hercules St, Chatswood NSW 2067
-            </p>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }

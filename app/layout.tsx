@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import StructuredData from "@/components/StructuredData";
 import { SITE_URL } from "@/lib/site";
 
@@ -64,6 +65,7 @@ export default function RootLayout({
         <SmoothScroll>
           <Header />
           {children}
+          <Footer />
         </SmoothScroll>
       </body>
     </html>

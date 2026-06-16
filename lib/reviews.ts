@@ -1,10 +1,20 @@
 // Single source of truth for patient reviews — used by both the landing-page
 // testimonials carousel and the dedicated /reviews page.
+import { CLINICS } from "@/lib/clinics";
+
 export type Review = {
   quote: string;
   name: string;
   year: string;
 };
+
+// Public Google listings for each clinic — the "Read all reviews on Google"
+// links on the /reviews page point here. Derived from the clinic data so the
+// URLs stay in sync.
+export const GOOGLE_REVIEW_LINKS = CLINICS.map((c) => ({
+  label: c.name,
+  url: c.reviewUrl,
+}));
 
 export const REVIEWS: Review[] = [
   {

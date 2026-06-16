@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import MaskedText from "@/components/MaskedText";
+import { CLINICS, PHONE, PHONE_HREF, EMAIL } from "@/lib/clinics";
 
 // Big, clickable direct-contact rows.
 const DIRECT = [
@@ -15,42 +16,43 @@ const DIRECT = [
   {
     who: "So Dental",
     label: "Call the practice",
-    value: "(02) 9413 1446",
-    href: "tel:+61294131446",
+    value: PHONE,
+    href: PHONE_HREF,
   },
   {
     who: "So Dental",
     label: "General enquiries",
-    value: "info@sodental.com.au",
-    href: "mailto:info@sodental.com.au",
+    value: EMAIL,
+    href: `mailto:${EMAIL}`,
   },
 ];
 
-const LOCATIONS = [
-  {
-    num: "01",
-    name: "So Dental Chatswood Place",
-    address: "54 Hercules St, Chatswood NSW 2067",
-    phone: "(02) 9413 1446",
-    phoneHref: "tel:+61294131446",
-    email: "info@sodental.com.au",
-    blurb:
-      "Conveniently located at Chatswood Place shopping centre.",
-    map: "https://maps.google.com/?q=54+Hercules+St,+Chatswood+NSW+2067",
-  },
-  {
-    num: "02",
-    name: "So Dental Lemon Grove",
-    address:
-      "Shop 37, Lemon Grove Shopping Centre, 431 Victoria Ave, Chatswood NSW 2067",
-    phone: "(02) 9413 1446",
-    phoneHref: "tel:+61294131446",
-    email: "info@sodental.com.au",
-    blurb:
-      "Conveniently located in Lemon Grove shopping centre.",
-    map: "https://maps.google.com/?q=Lemon+Grove+Shopping+Centre,+431+Victoria+Ave,+Chatswood+NSW+2067",
-  },
+type Hours = { days: string; time: string }[];
+
+// Mon–Sat are identical across both clinics; only Sunday differs.
+const WEEK_HOURS: Hours = [
+  { days: "Mon – Wed", time: "8:30am – 6:00pm" },
+  { days: "Thursday", time: "8:30am – 7:00pm" },
+  { days: "Friday", time: "8:30am – 6:00pm" },
+  { days: "Saturday", time: "8:30am – 5:00pm" },
 ];
+
+// Per-clinic extras (hours + blurb), merged onto the shared clinic data so the
+// addresses, map and review links stay in a single source of truth.
+const EXTRAS: Record<string, { num: string; blurb: string; hours: Hours }> = {
+  "chatswood-place": {
+    num: "01",
+    blurb: "Conveniently located at Chatswood Place shopping centre.",
+    hours: [...WEEK_HOURS, { days: "Sunday", time: "9:00am – 4:00pm" }],
+  },
+  "lemon-grove": {
+    num: "02",
+    blurb: "Conveniently located in Lemon Grove shopping centre.",
+    hours: [...WEEK_HOURS, { days: "Sunday", time: "Closed" }],
+  },
+};
+
+const LOCATIONS = CLINICS.map((c) => ({ ...c, ...EXTRAS[c.id] }));
 
 export default function ContactContent() {
   const root = useRef<HTMLDivElement>(null);
@@ -169,25 +171,50 @@ export default function ContactContent() {
                 <div>
                   <dt>Phone</dt>
                   <dd>
-                    <a href={loc.phoneHref} data-cursor="invert">
-                      {loc.phone}
+                    <a href={PHONE_HREF} data-cursor="invert">
+                      {PHONE}
                     </a>
                   </dd>
                 </div>
                 <div>
                   <dt>Email</dt>
                   <dd>
-                    <a href={`mailto:${loc.email}`} data-cursor="invert">
-                      {loc.email}
+                    <a href={`mailto:${EMAIL}`} data-cursor="invert">
+                      {EMAIL}
                     </a>
                   </dd>
                 </div>
               </dl>
 
+              <div className="contact-loc__hours">
+                <span className="contact-loc__hoursTitle">Opening hours</span>
+                <dl className="contact-loc__hoursList">
+                  {loc.hours.map((h) => (
+                    <div key={h.days}>
+                      <dt>{h.days}</dt>
+                      <dd className={h.time === "Closed" ? "is-closed" : undefined}>
+                        {h.time}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+
               <p className="contact-loc__blurb">{loc.blurb}</p>
 
+              <div className="contact-loc__mapWrap">
+                <iframe
+                  className="contact-loc__embed"
+                  src={loc.embedUrl}
+                  title={`Map of ${loc.name}`}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
+
               <a
-                href={loc.map}
+                href={loc.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-loc__map"

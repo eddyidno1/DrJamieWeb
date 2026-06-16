@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import MaskedText from "@/components/MaskedText";
-import { REVIEWS } from "@/lib/reviews";
+import { REVIEWS, GOOGLE_REVIEW_LINKS } from "@/lib/reviews";
 import { BOOKING_URL } from "@/lib/booking";
 
 const STATS = [
@@ -151,6 +151,29 @@ export default function ReviewsContent() {
               →
             </span>
           </a>
+
+          <div className="rv-cta__google">
+            <span className="rv-cta__google-label">
+              Read all reviews on Google
+            </span>
+            <div className="rv-cta__google-links">
+              {GOOGLE_REVIEW_LINKS.map((g) => (
+                <a
+                  key={g.url}
+                  href={g.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rv-cta__google-link"
+                  data-cursor="invert"
+                >
+                  <span>{g.label}</span>
+                  <span className="rv-cta__arrow" aria-hidden="true">
+                    →
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </div>
