@@ -748,124 +748,129 @@ html.custom-cursor-active * {
   display: block;
 }
 
-/* Mobile two-step service row: tap to reveal photo + explore arrow */
+/* Mobile service row: tap -> photo slides in from the right and lands on the
+   LEFT, filling the full row height (no top/bottom gap); then the info + arrow
+   fade in on the right. Tap again opens the service page. */
 .work-m {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  /* Horizontal padding + matching negative margin so the highlight card can
-     extend past the text without shifting it when a row opens. */
+  --wm-closed-h: clamp(3.2rem, 13vw, 4.6rem);
+  --wm-open-h: clamp(96px, 27vw, 150px);
+  --wm-img-w: clamp(128px, 38vw, 200px);
+  --wm-pad: clamp(0.7rem, 3vw, 1.1rem);
+  position: relative;
+  display: block;
+  overflow: hidden;
   margin-left: clamp(-1.1rem, -3vw, -0.7rem);
   margin-right: clamp(-1.1rem, -3vw, -0.7rem);
-  padding: clamp(1.2rem, 4vw, 2.2rem) clamp(0.7rem, 3vw, 1.1rem);
+  padding: 0 var(--wm-pad);
+  min-height: var(--wm-closed-h);
   border-bottom: 1px solid rgba(233, 230, 221, 0.18);
   border-radius: 12px;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition: min-height 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.5s ease;
 }
 /* Selected row inverts to the warm cream (matches the site's invert motif). */
 .work-m.is-open {
+  min-height: var(--wm-open-h);
   background: var(--fg-dark);
   border-bottom-color: transparent;
 }
-.work-m.is-open .work__name {
-  color: var(--bg-dark);
+
+/* Photo — absolute, on the LEFT, fills the full row height; slides in from the
+   right edge to its left slot. */
+.work-m__img {
+  position: absolute;
+  left: var(--wm-pad);
+  top: 0;
+  bottom: 0;
+  width: var(--wm-img-w);
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transform: translateX(82vw);
+  opacity: 0;
+  transition: transform 0.72s cubic-bezier(0.34, 1.5, 0.5, 1),
+    opacity 0.3s ease;
+  pointer-events: none;
 }
-.work-m.is-open .work-m__meta {
-  color: rgba(20, 17, 13, 0.6);
+.work-m.is-open .work-m__img {
+  transform: translateX(0);
+  opacity: 1;
 }
-.work-m.is-open .work-m__arrow {
-  border-color: rgba(20, 17, 13, 0.35);
-  color: var(--bg-dark);
+
+/* Closed label — the service name; fades out as the row opens. */
+.work-m__label {
+  display: flex;
+  align-items: center;
+  min-height: var(--wm-closed-h);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 7vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
 }
-.work-m__toggle {
-  flex: 1 1 auto;
-  min-width: 0;
+.work-m.is-open .work-m__label {
+  opacity: 0;
+}
+
+/* Open info — to the RIGHT of the photo; fades in after the photo lands. */
+.work-m__info {
+  position: absolute;
+  top: 50%;
+  right: clamp(0.9rem, 4vw, 1.5rem);
+  left: calc(var(--wm-pad) + var(--wm-img-w) + clamp(0.9rem, 4vw, 1.4rem));
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.4rem;
-  background: transparent;
-  border: 0;
-  padding: 0;
-  text-align: left;
-  color: inherit;
-  cursor: pointer;
+  gap: 0.35rem;
+  transform: translateY(-50%) translateX(18px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease 0.38s,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.38s;
+}
+.work-m.is-open .work-m__info {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+.work-m__infoName {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.05rem, 4.5vw, 1.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--bg-dark);
 }
 .work-m__meta {
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(233, 230, 221, 0.6);
+  color: rgba(20, 17, 13, 0.6);
 }
-/* Text gets "pushed" by the incoming photo, sways, then settles. */
-.work-m.is-open .work-m__toggle {
-  animation: work-sway 1.05s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-@keyframes work-sway {
-  0% { transform: translateX(0); }
-  16% { transform: translateX(-34px); }
-  32% { transform: translateX(22px); }
-  48% { transform: translateX(-15px); }
-  62% { transform: translateX(10px); }
-  74% { transform: translateX(-6px); }
-  85% { transform: translateX(3px); }
-  93% { transform: translateX(-1px); }
-  100% { transform: translateX(0); }
-}
-.work-m__cta {
-  flex: 0 0 auto;
-  display: flex;
+.work-m__explore {
+  display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  width: 0;
-  overflow: hidden;
-  pointer-events: none;
-  transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bg-dark);
 }
-.work-m.is-open .work-m__cta {
-  width: min(46vw, 230px);
-  pointer-events: auto;
-}
-.work-m__img {
-  flex: 1 1 auto;
-  min-width: 0;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: 4px;
-  display: block;
-  /* slide in from the right with a big spring overshoot */
-  transform: translateX(110px) scale(0.9);
-  opacity: 0;
-  transition: transform 0.72s cubic-bezier(0.34, 1.8, 0.5, 1),
-    opacity 0.4s ease;
-}
-.work-m.is-open .work-m__img {
-  transform: translateX(0) scale(1);
-  opacity: 1;
-}
-.work-m__arrow {
-  flex: 0 0 auto;
+.work-m__explore span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  border: 1px solid rgba(233, 230, 221, 0.45);
-  font-size: 1.05rem;
-  color: var(--fg-dark);
-  /* trails behind the photo */
-  transform: translateX(70px);
-  opacity: 0;
-  transition: transform 0.7s cubic-bezier(0.34, 1.8, 0.5, 1) 0.1s,
-    opacity 0.45s ease 0.1s;
-}
-.work-m.is-open .work-m__arrow {
-  transform: translateX(0);
-  opacity: 1;
+  border: 1px solid rgba(20, 17, 13, 0.4);
+  font-size: 0.85rem;
 }
 
 /* ============================================================

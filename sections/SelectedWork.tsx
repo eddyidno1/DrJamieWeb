@@ -95,35 +95,32 @@ export default function SelectedWork() {
       <div className="work__list">
         {PROJECTS.map((p) =>
           isTouch ? (
-            <div
-              className={`work-m${openId === p.id ? " is-open" : ""}`}
+            // First tap opens the row (photo slides in); second tap navigates.
+            <Link
               key={p.name}
-            >
-              <button
-                type="button"
-                className="work-m__toggle"
-                aria-expanded={openId === p.id}
-                onClick={() =>
-                  setOpenId((cur) => (cur === p.id ? null : p.id))
+              href={`/services?service=${p.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`work-m${openId === p.id ? " is-open" : ""}`}
+              aria-expanded={openId === p.id}
+              onClick={(e) => {
+                if (openId !== p.id) {
+                  e.preventDefault();
+                  setOpenId(p.id);
                 }
-              >
-                <span className="work__name">{p.name}</span>
+              }}
+            >
+              <img className="work-m__img" src={p.img} alt={p.name} />
+              <span className="work-m__label">{p.name}</span>
+              <span className="work-m__info" aria-hidden={openId !== p.id}>
+                <span className="work-m__infoName">{p.name}</span>
                 <span className="work-m__meta">{p.meta}</span>
-              </button>
-              <Link
-                className="work-m__cta"
-                href={`/services?service=${p.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Explore ${p.name} in our services`}
-                tabIndex={openId === p.id ? 0 : -1}
-              >
-                <img className="work-m__img" src={p.img} alt={p.name} />
-                <span className="work-m__arrow" aria-hidden="true">
-                  ↗
+                <span className="work-m__explore">
+                  Explore in services
+                  <span aria-hidden="true">↗</span>
                 </span>
-              </Link>
-            </div>
+              </span>
+            </Link>
           ) : (
             <Link
               className="work__row"
