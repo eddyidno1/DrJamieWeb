@@ -766,7 +766,9 @@ html.custom-cursor-active * {
 /* Selected row inverts to the warm cream (matches the site's invert motif). */
 .work-m.is-open {
   background: var(--fg-dark);
-  border-bottom-color: transparent;
+  /* drop the divider entirely (a transparent border still shows the dark
+     section through its 1px, looking like a line under the photo) */
+  border-bottom: 0;
 }
 
 /* Photo — flush to the left edge, no rounded corners, fills the full row
