@@ -748,6 +748,77 @@ html.custom-cursor-active * {
   display: block;
 }
 
+/* Mobile two-step service row: tap to reveal photo + explore arrow */
+.work-m {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1.2rem, 4vw, 2.2rem) 0;
+  border-bottom: 1px solid rgba(233, 230, 221, 0.18);
+}
+.work-m__toggle {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+.work-m .work__name {
+  transition: opacity 0.3s ease;
+}
+.work-m__meta {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(233, 230, 221, 0.6);
+}
+.work-m__cta {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+}
+.work-m.is-open .work-m__cta {
+  width: min(46vw, 230px);
+  opacity: 1;
+  pointer-events: auto;
+}
+.work-m__img {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+.work-m__arrow {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(233, 230, 221, 0.45);
+  font-size: 1.05rem;
+  color: var(--fg-dark);
+}
+
 /* ============================================================
    Press / thought leadership
    ============================================================ */

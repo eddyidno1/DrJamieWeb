@@ -1,7 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap, useGSAP } from "@/lib/gsap";
 
@@ -51,6 +51,18 @@ export default function SelectedWork() {
   const floating = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
 
+  // Touch devices have no hover, so they use a two-step row: tap reveals the
+  // photo + an explore arrow; tapping the arrow opens the service in a new tab.
+  const [isTouch, setIsTouch] = useState(false);
+  const [openId, setOpenId] = useState<string | null>(null);
+  useEffect(() => {
+    const mq = window.matchMedia("(pointer: coarse)");
+    const update = () => setIsTouch(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
   useGSAP(
     () => {
       const el = floating.current!;
@@ -81,21 +93,53 @@ export default function SelectedWork() {
       <span className="eyebrow">Our services</span>
 
       <div className="work__list">
-        {PROJECTS.map((p) => (
-          <Link
-            className="work__row"
-            href={`/services?service=${p.id}`}
-            key={p.name}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor="invert"
-            onMouseEnter={() => show(p.img)}
-            onMouseLeave={hide}
-          >
-            <span className="work__name">{p.name}</span>
-            <span className="work__meta">{p.meta}</span>
-          </Link>
-        ))}
+        {PROJECTS.map((p) =>
+          isTouch ? (
+            <div
+              className={`work-m${openId === p.id ? " is-open" : ""}`}
+              key={p.name}
+            >
+              <button
+                type="button"
+                className="work-m__toggle"
+                aria-expanded={openId === p.id}
+                onClick={() =>
+                  setOpenId((cur) => (cur === p.id ? null : p.id))
+                }
+              >
+                <span className="work__name">{p.name}</span>
+                <span className="work-m__meta">{p.meta}</span>
+              </button>
+              <Link
+                className="work-m__cta"
+                href={`/services?service=${p.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Explore ${p.name} in our services`}
+                tabIndex={openId === p.id ? 0 : -1}
+              >
+                <img className="work-m__img" src={p.img} alt={p.name} />
+                <span className="work-m__arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </Link>
+            </div>
+          ) : (
+            <Link
+              className="work__row"
+              href={`/services?service=${p.id}`}
+              key={p.name}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="invert"
+              onMouseEnter={() => show(p.img)}
+              onMouseLeave={hide}
+            >
+              <span className="work__name">{p.name}</span>
+              <span className="work__meta">{p.meta}</span>
+            </Link>
+          )
+        )}
       </div>
 
       <div className="work__floating" ref={floating} aria-hidden="true">
