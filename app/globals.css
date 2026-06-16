@@ -6,7 +6,7 @@
   --fg: #14110d;        /* near-black */
   --bg-dark: #14110d;
   --fg-dark: #e9e6dd;
-  --muted: #6b655b;
+  --muted: #5a544a; /* ~6:1 on --bg (was #6b655b ≈ 4.6:1, no AA margin) */
   --line: rgba(20, 17, 13, 0.16);
 
   --font-display: "Archivo", system-ui, sans-serif;
@@ -861,7 +861,7 @@ html.custom-cursor-active * {
   transition: color 0.5s ease;
 }
 .work-m.is-open .work-m__meta {
-  color: rgba(20, 17, 13, 0.62);
+  color: rgba(20, 17, 13, 0.72);
 }
 .work-m__explore {
   display: inline-flex;
