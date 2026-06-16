@@ -49,13 +49,14 @@ export default function ScrollVideo() {
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // The "hold" rect. Desktop: near full-bleed, centred. Mobile: keep the
-    // START size (no enlargement) — the video just rides to the centre at its
-    // original size and then shrinks into the heading.
+    // The "hold" rect. Desktop: near full-bleed, centred. Mobile: stays locked
+    // to the start slot (live) — so the video keeps its size and rides UP with
+    // the "I understand…" paragraph at the same speed until shrink begins.
     const fullRect = (): Rect => {
+      if (isMobile()) return toRect(start);
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const width = isMobile() ? toRect(start).width : vw * widthFactor();
+      const width = vw * widthFactor();
       const height = Math.min((width * 9) / 16, vh * 0.9);
       return { left: (vw - width) / 2, top: (vh - height) / 2, width, height };
     };
@@ -87,16 +88,24 @@ export default function ScrollVideo() {
         // bottom edge reaches the viewport bottom = paragraph fully shown
         pHold = progressAt(r.bottom + window.scrollY - window.innerHeight, self);
       }
-      if (lead) {
+      if (isMobile()) {
+        // Mobile: the video stays attached to the paragraph and rides up with
+        // it; shrink begins once the paragraph's bottom passes the top of the
+        // screen (i.e. the paragraph has just disappeared).
+        if (para) {
+          const r = para.getBoundingClientRect();
+          pContract = progressAt(r.bottom + window.scrollY, self);
+        }
+      } else if (lead) {
+        // Desktop: shrink begins once the heading's top reaches contractAnchor()
+        // of the viewport height (measured from the top).
         const r = lead.getBoundingClientRect();
-        // shrink begins once the heading's top reaches contractAnchor() of the
-        // viewport height (measured from the top)
         pContract = progressAt(
           r.top + window.scrollY - window.innerHeight * contractAnchor(),
           self
         );
       }
-      // Keep ordering: full-bleed hold can't start before the expand finishes.
+      // Keep ordering: the hold can't start before the (no-op on mobile) expand.
       pContract = Math.max(pContract, Math.min(pHold + expandDur(), 1));
     };
 
