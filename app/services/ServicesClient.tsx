@@ -72,6 +72,23 @@ export default function ServicesClient() {
   const [active, setActive] = useState<string | null>(null);
   const activeService = SERVICES.find((s) => s.id === active) ?? null;
 
+  // WebGL support — render a plain, fully-functional list instead of the 3D
+  // tooth on devices that can't run it. null = not yet detected.
+  const [webgl, setWebgl] = useState<boolean | null>(null);
+  useEffect(() => {
+    try {
+      const c = document.createElement("canvas");
+      setWebgl(
+        !!(
+          window.WebGLRenderingContext &&
+          (c.getContext("webgl") || c.getContext("experimental-webgl"))
+        )
+      );
+    } catch {
+      setWebgl(false);
+    }
+  }, []);
+
   // Arriving from the landing page (e.g. /services?service=cosmetic) opens that
   // service's panel straight away.
   useEffect(() => {
@@ -81,26 +98,58 @@ export default function ServicesClient() {
 
   return (
     <div className="services">
-      <h1 className={`services__title${active ? " is-hidden" : ""}`}>
+      <h1
+        className={`services__title${
+          active || webgl === false ? " is-hidden" : ""
+        }`}
+      >
         Our Services
       </h1>
 
       <div className="services__canvas">
-        <Scene
-          services={SERVICES}
-          hovered={hovered}
-          active={active}
-          onHover={setHovered}
-          onSelect={setActive}
-        />
+        {webgl === true && (
+          <Scene
+            services={SERVICES}
+            hovered={hovered}
+            active={active}
+            onHover={setHovered}
+            onSelect={setActive}
+          />
+        )}
       </div>
 
-      <p className={`services__hint${active ? " is-hidden" : ""}`}>
-        <span className="services__hint--fine">
-          Hover a service · click to explore
-        </span>
-        <span className="services__hint--touch">Tap a service to explore</span>
-      </p>
+      {webgl !== false && (
+        <p className={`services__hint${active ? " is-hidden" : ""}`}>
+          <span className="services__hint--fine">
+            Hover a service · click to explore
+          </span>
+          <span className="services__hint--touch">Tap a service to explore</span>
+        </p>
+      )}
+
+      {/* No-WebGL fallback: a plain, tappable list (opens the same panel). */}
+      {webgl === false && (
+        <div className={`services__fallback${active ? " is-dim" : ""}`}>
+          <span className="eyebrow">Our Services</span>
+          <ul className="services__fallbackList">
+            {SERVICES.map((s) => (
+              <li key={s.id}>
+                <button
+                  type="button"
+                  className="services__fallbackItem"
+                  onClick={() => setActive(s.id)}
+                >
+                  <span className="services__fallbackTitle">{s.title}</span>
+                  <span className="services__fallbackBlurb">{s.blurb}</span>
+                  <span className="services__fallbackArrow" aria-hidden="true">
+                    →
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <aside
         className={`services__panel${active ? " is-open" : ""}`}
