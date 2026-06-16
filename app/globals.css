@@ -761,7 +761,6 @@ html.custom-cursor-active * {
   margin-left: clamp(-1.1rem, -3vw, -0.7rem);
   margin-right: clamp(-1.1rem, -3vw, -0.7rem);
   border-bottom: 1px solid rgba(233, 230, 221, 0.18);
-  border-radius: 12px;
   transition: background-color 0.5s ease;
 }
 /* Selected row inverts to the warm cream (matches the site's invert motif). */
