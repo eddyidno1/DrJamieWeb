@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 const ROWS = [
   { dir: 1, outline: false },
@@ -15,6 +15,7 @@ export default function MethodOutro() {
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
       const rows = gsap.utils.toArray<HTMLElement>(".method__row", root.current);
       rows.forEach((row) => {
         const dir = Number(row.dataset.dir);

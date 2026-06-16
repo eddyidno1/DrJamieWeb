@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 // Each photo in /public is named exactly after its headline, so the image
 // path is derived from the headline — guaranteeing the right photo per item.
@@ -18,6 +18,7 @@ export default function Press() {
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
       const cards = gsap.utils.toArray<HTMLElement>(".press-card", root.current);
       gsap.from(cards, {
         autoAlpha: 0,

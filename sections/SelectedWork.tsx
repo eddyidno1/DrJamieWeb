@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 // `id` matches the service id on the /services page so clicking opens that
 // service's panel directly.
@@ -65,6 +65,7 @@ export default function SelectedWork() {
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
       const el = floating.current!;
       const xTo = gsap.quickTo(el, "x", { duration: 0.5, ease: "power3" });
       const yTo = gsap.quickTo(el, "y", { duration: 0.5, ease: "power3" });

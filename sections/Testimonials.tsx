@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import { REVIEWS as QUOTES } from "@/lib/reviews";
 
 export default function Testimonials() {
@@ -39,6 +39,7 @@ export default function Testimonials() {
   // Drag / swipe support.
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
       let startX = 0;
       const el = root.current!;
       const down = (e: PointerEvent) => (startX = e.clientX);

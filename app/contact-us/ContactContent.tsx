@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import MaskedText from "@/components/MaskedText";
 
 // Big, clickable direct-contact rows.
@@ -58,6 +58,7 @@ export default function ContactContent() {
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
       const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]", hero.current);
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
       tl.from(reveals, { yPercent: 110, duration: 1, stagger: 0.08 })

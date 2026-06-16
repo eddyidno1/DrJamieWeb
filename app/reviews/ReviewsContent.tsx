@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import MaskedText from "@/components/MaskedText";
 import { REVIEWS } from "@/lib/reviews";
 import { BOOKING_URL } from "@/lib/booking";
@@ -26,6 +26,7 @@ export default function ReviewsContent() {
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
       // Hero: masked headline, intro + stats fade in.
       const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]", hero.current);
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });

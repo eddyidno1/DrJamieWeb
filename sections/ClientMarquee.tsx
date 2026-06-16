@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import { scrollStore } from "@/lib/scroll-store";
 
 const CLIENTS = [
@@ -21,6 +21,7 @@ export default function ClientMarquee() {
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
       // Continuous loop across one copy of the list (the DOM holds two copies,
       // so -50% returns to the identical starting frame seamlessly).
       const loop = gsap.to(track.current, {

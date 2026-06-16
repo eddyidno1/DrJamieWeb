@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import MaskedText from "@/components/MaskedText";
 
 const PRACTICE = [
@@ -28,6 +28,7 @@ export default function AboutContent() {
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
       // Intro: masked name slides up, intro + photo reveal.
       const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]", hero.current);
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });

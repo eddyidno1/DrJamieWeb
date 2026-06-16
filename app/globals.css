@@ -2280,4 +2280,9 @@ html.custom-cursor-active * {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
   }
+  /* GSAP setups early-return under reduced motion, so the cursor-following
+     hover image is never wired up — hide it rather than show it stuck. */
+  .work__floating {
+    display: none !important;
+  }
 }

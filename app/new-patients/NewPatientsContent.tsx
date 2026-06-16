@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import MaskedText from "@/components/MaskedText";
 import { BOOKING_URL } from "@/lib/booking";
 
@@ -83,6 +83,7 @@ export default function NewPatientsContent() {
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
       // Hero: masked headline slides up, supporting copy fades in.
       const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]", hero.current);
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });

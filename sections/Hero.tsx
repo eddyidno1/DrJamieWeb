@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -10,6 +10,7 @@ export default function Hero() {
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
       const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]", headline.current);
 
       // Intro: staggered slide-up of each masked word, then the bottom row.

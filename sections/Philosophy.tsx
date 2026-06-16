@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import { BOOKING_URL } from "@/lib/booking";
 
 const LINKS = [
@@ -15,6 +15,7 @@ export default function Philosophy() {
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
       const blocks = gsap.utils.toArray<HTMLElement>("[data-fade]", root.current);
       blocks.forEach((block) => {
         gsap.from(block, {
