@@ -43,7 +43,7 @@ export default function Press() {
 
       <div className="press__grid">
         {ITEMS.map((item) => (
-          <a className="press-card" href="#" key={item.headline}>
+          <div className="press-card" key={item.headline}>
             <div className="press-card__media">
               <img
                 src={encodeURI(`/${item.headline}.avif`)}
@@ -53,7 +53,7 @@ export default function Press() {
             </div>
             <span className="press-card__tag">{item.tag}</span>
             <h3 className="press-card__headline">{item.headline}</h3>
-          </a>
+          </div>
         ))}
       </div>
     </section>
