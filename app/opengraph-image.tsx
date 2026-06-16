@@ -1,22 +1,10 @@
 import { ImageResponse } from "next/og";
+import { archivo } from "@/lib/og-font";
 
 export const alt =
   "Dr Jamie Lam — your new family dentist at So Dental, Chatswood";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-// Fetch a static Archivo .ttf at build time (satori can't use woff2, so an old
-// User-Agent is used to make Google Fonts return truetype).
-async function archivo(weight: number): Promise<ArrayBuffer> {
-  // A simple UA (no woff2 advertised) makes Google Fonts return truetype.
-  const css = await fetch(
-    `https://fonts.googleapis.com/css2?family=Archivo:wght@${weight}`,
-    { headers: { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64)" } }
-  ).then((r) => r.text());
-  const url = css.match(/src:\s*url\((https:\/\/[^)]+\.ttf)\)/)?.[1];
-  if (!url) throw new Error("Archivo ttf not found");
-  return fetch(url).then((r) => r.arrayBuffer());
-}
 
 export default async function Image() {
   const [bold, medium] = await Promise.all([archivo(800), archivo(500)]);
