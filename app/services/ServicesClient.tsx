@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 const Scene = dynamic(() => import("./Scene"), { ssr: false });
@@ -71,6 +71,13 @@ export default function ServicesClient() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [active, setActive] = useState<string | null>(null);
   const activeService = SERVICES.find((s) => s.id === active) ?? null;
+
+  // Arriving from the landing page (e.g. /services?service=cosmetic) opens that
+  // service's panel straight away.
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get("service");
+    if (id && SERVICES.some((s) => s.id === id)) setActive(id);
+  }, []);
 
   return (
     <div className="services">

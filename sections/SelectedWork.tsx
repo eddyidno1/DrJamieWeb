@@ -2,35 +2,44 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useRef } from "react";
+import Link from "next/link";
 import { gsap, useGSAP } from "@/lib/gsap";
 
+// `id` matches the service id on the /services page so clicking opens that
+// service's panel directly.
 const PROJECTS = [
   {
+    id: "cosmetic",
     name: "Cosmetic Dentistry",
     meta: "Veneers, whitening & smile design",
     img: "/cosmetic.avif",
   },
   {
+    id: "implants",
     name: "Implants",
     meta: "Permanent tooth replacement",
     img: "/implants.avif",
   },
   {
+    id: "rootcanal",
     name: "Root Canal Treatment",
     meta: "Saving infected & damaged teeth",
     img: "/rootcanal.avif",
   },
   {
+    id: "extraction",
     name: "Extraction",
     meta: "Simple & surgical removal",
     img: "/extraction.avif",
   },
   {
+    id: "invisalign",
     name: "Invisalign",
     meta: "Clear aligner orthodontics",
     img: "/invisalign.avif",
   },
   {
+    id: "other",
     name: "Other Services",
     meta: "Check-ups, cleans & hygiene",
     img: "/services.avif",
@@ -73,9 +82,9 @@ export default function SelectedWork() {
 
       <div className="work__list">
         {PROJECTS.map((p) => (
-          <a
+          <Link
             className="work__row"
-            href="#work"
+            href={`/services?service=${p.id}`}
             key={p.name}
             data-cursor="invert"
             onMouseEnter={() => show(p.img)}
@@ -83,7 +92,7 @@ export default function SelectedWork() {
           >
             <span className="work__name">{p.name}</span>
             <span className="work__meta">{p.meta}</span>
-          </a>
+          </Link>
         ))}
       </div>
 
