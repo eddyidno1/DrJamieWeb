@@ -315,36 +315,77 @@ html.custom-cursor-active * {
 }
 
 /* ============================================================
-   Simple inner pages
+   404 / not found
    ============================================================ */
-.page-stub {
-  min-height: 70vh;
+.notfound {
+  min-height: 72vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1.25rem;
-  padding: clamp(4rem, 10vw, 9rem) var(--pad);
+  align-items: flex-start;
+  gap: 1.1rem;
   max-width: var(--maxw);
   margin: 0 auto;
+  padding: clamp(4rem, 12vw, 9rem) var(--pad);
 }
-.page-stub h1 {
+.notfound__num {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(2.5rem, 8vw, 7rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+  font-size: clamp(5rem, 22vw, 15rem);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
 }
-.page-stub p {
-  max-width: 50ch;
+.notfound__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.notfound__text {
+  max-width: 46ch;
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   color: var(--muted);
 }
-.page-stub a {
-  width: fit-content;
+.notfound__links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.notfound__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
   font-weight: 600;
+  font-size: 1rem;
+  padding: 0.95rem 1.7rem;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+.notfound__btn span:last-child {
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.notfound__btn:hover {
+  background: transparent;
+  color: var(--fg);
+  box-shadow: inset 0 0 0 1.5px var(--fg);
+}
+.notfound__btn:hover span:last-child {
+  transform: translateX(5px);
+}
+.notfound__link {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding-bottom: 3px;
   border-bottom: 1.5px solid var(--fg);
-  padding-bottom: 2px;
 }
 
 /* ============================================================
