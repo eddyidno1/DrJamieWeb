@@ -8,32 +8,32 @@ const PROJECTS = [
   {
     name: "Cosmetic Dentistry",
     meta: "Veneers, whitening & smile design",
-    img: "https://picsum.photos/seed/dental-cosmetic/800/600",
+    img: "/cosmetic.png",
   },
   {
     name: "Implants",
     meta: "Permanent tooth replacement",
-    img: "https://picsum.photos/seed/dental-implants/800/600",
+    img: "/implants.png",
   },
   {
     name: "Root Canal Treatment",
     meta: "Saving infected & damaged teeth",
-    img: "https://picsum.photos/seed/dental-rootcanal/800/600",
+    img: "/rootcanal.png",
   },
   {
     name: "Extraction",
     meta: "Simple & surgical removal",
-    img: "https://picsum.photos/seed/dental-extraction/800/600",
+    img: "/extraction.png",
   },
   {
     name: "Invisalign",
     meta: "Clear aligner orthodontics",
-    img: "https://picsum.photos/seed/dental-invisalign/800/600",
+    img: "/invisalign.png",
   },
   {
     name: "Other Services",
     meta: "Check-ups, cleans & hygiene",
-    img: "https://picsum.photos/seed/dental-other/800/600",
+    img: "/services.png",
   },
 ];
 
