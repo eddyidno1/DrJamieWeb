@@ -1385,7 +1385,13 @@ html.custom-cursor-active * {
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #e3372b;
+  /* Dark pill + cream text (~15:1) so the label meets WCAG AA regardless of
+     the scene/tooth colour behind it. The dot stays bright red. */
+  color: var(--bg);
+  background: rgba(20, 17, 13, 0.92);
+  padding: 0.32rem 0.6rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(20, 17, 13, 0.22);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease,
@@ -1420,14 +1426,9 @@ html.custom-cursor-active * {
     height: 14px;
   }
   .svc-node__label {
-    opacity: 1;
-    padding: 0.3rem 0.6rem;
-    border-radius: 999px;
-    background: rgba(20, 17, 13, 0.9);
-    color: var(--bg);
+    opacity: 1; /* no hover on touch — always visible (pill styles inherited) */
     font-size: 0.66rem;
     letter-spacing: 0.05em;
-    box-shadow: 0 6px 16px rgba(20, 17, 13, 0.24);
   }
 }
 
