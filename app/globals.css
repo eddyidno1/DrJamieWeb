@@ -52,6 +52,36 @@ a {
 }
 
 /* ============================================================
+   Keyboard focus (visible ring for Tab users; the custom cursor hides the
+   native one, so a clear focus indicator matters)
+   ============================================================ */
+:root {
+  --focus: var(--fg);
+}
+/* On dark sections, switch the ring to the light brand colour so it stays
+   visible. */
+.work,
+.testimonials,
+.np-cta,
+.rv-cta {
+  --focus: var(--fg-dark);
+}
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+/* Only show the ring for keyboard focus, not mouse/touch clicks. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+/* Keyboard parity for the animated underline links. */
+.site-header__link:focus-visible::after,
+.cta-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* ============================================================
    Custom cursor
    ============================================================ */
 html.custom-cursor-active,
