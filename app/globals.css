@@ -356,11 +356,13 @@ html.custom-cursor-active * {
   overflow: hidden;
 }
 @media (max-width: 768px) {
-  /* Top-align on mobile and match the header→title gap to the title→paragraph
-     gap (.hero__bottom margin-top) instead of vertically centering. */
+  /* Top-align on mobile and let the hero be content-height (no forced 100svh)
+     so there's no big empty gap before the "Guiding…" heading. */
   .hero {
     justify-content: flex-start;
+    min-height: auto;
     padding-top: clamp(2rem, 6vw, 5rem);
+    padding-bottom: clamp(1.5rem, 5vw, 2.5rem);
   }
 }
 .hero__headline {
