@@ -771,9 +771,6 @@ html.custom-cursor-active * {
   color: inherit;
   cursor: pointer;
 }
-.work-m .work__name {
-  transition: opacity 0.3s ease;
-}
 .work-m__meta {
   font-family: var(--font-body);
   font-size: 0.72rem;
@@ -781,20 +778,31 @@ html.custom-cursor-active * {
   text-transform: uppercase;
   color: rgba(233, 230, 221, 0.6);
 }
+/* Text gets "pushed" by the incoming photo, sways, then settles. */
+.work-m.is-open .work-m__toggle {
+  animation: work-sway 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes work-sway {
+  0% { transform: translateX(0); }
+  22% { transform: translateX(-16px); }
+  44% { transform: translateX(9px); }
+  62% { transform: translateX(-5px); }
+  78% { transform: translateX(3px); }
+  90% { transform: translateX(-1px); }
+  100% { transform: translateX(0); }
+}
 .work-m__cta {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   gap: 0.6rem;
   width: 0;
-  opacity: 0;
   overflow: hidden;
   pointer-events: none;
-  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+  transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .work-m.is-open .work-m__cta {
   width: min(46vw, 230px);
-  opacity: 1;
   pointer-events: auto;
 }
 .work-m__img {
@@ -805,6 +813,15 @@ html.custom-cursor-active * {
   object-fit: cover;
   border-radius: 4px;
   display: block;
+  /* slide in from the right with a spring overshoot */
+  transform: translateX(60px);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.45s ease;
+}
+.work-m.is-open .work-m__img {
+  transform: translateX(0);
+  opacity: 1;
 }
 .work-m__arrow {
   flex: 0 0 auto;
@@ -817,6 +834,15 @@ html.custom-cursor-active * {
   border: 1px solid rgba(233, 230, 221, 0.45);
   font-size: 1.05rem;
   color: var(--fg-dark);
+  /* trails slightly behind the photo */
+  transform: translateX(40px);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.06s,
+    opacity 0.45s ease 0.06s;
+}
+.work-m.is-open .work-m__arrow {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 /* ============================================================
