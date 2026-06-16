@@ -38,6 +38,13 @@ export const metadata: Metadata = {
     description:
       "Meet your new family dentist. Gentle, patient-first dental care at So Dental in Chatswood.",
     type: "website",
+    locale: "en_AU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dr Jamie Lam — Family Dentist | So Dental, Chatswood",
+    description:
+      "Meet your new family dentist. Gentle, patient-first dental care at So Dental in Chatswood.",
   },
 };
 
