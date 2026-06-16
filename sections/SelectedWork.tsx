@@ -111,9 +111,8 @@ export default function SelectedWork() {
               }}
             >
               <img className="work-m__img" src={p.img} alt={p.name} />
-              <span className="work-m__label">{p.name}</span>
-              <span className="work-m__info" aria-hidden={openId !== p.id}>
-                <span className="work-m__infoName">{p.name}</span>
+              <span className="work-m__body">
+                <span className="work-m__name">{p.name}</span>
                 <span className="work-m__meta">{p.meta}</span>
                 <span className="work-m__explore">
                   Explore in services

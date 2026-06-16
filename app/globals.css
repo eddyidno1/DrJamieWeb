@@ -748,45 +748,39 @@ html.custom-cursor-active * {
   display: block;
 }
 
-/* Mobile service row: tap -> photo slides in from the right and lands on the
-   LEFT, filling the full row height (no top/bottom gap); then the info + arrow
-   fade in on the right. Tap again opens the service page. */
+/* Mobile service row: tap -> photo slides in from the right and lands flush on
+   the LEFT (no gap, no radius), filling the row height; the subtitle shows even
+   when closed; the row height is driven by the content (longer names = taller
+   row = taller photo). Tap again opens the service page. */
 .work-m {
-  --wm-closed-h: clamp(3.2rem, 13vw, 4.6rem);
-  --wm-open-h: clamp(96px, 27vw, 150px);
-  --wm-img-w: clamp(128px, 38vw, 200px);
-  --wm-pad: clamp(0.7rem, 3vw, 1.1rem);
+  --wm-img-w: clamp(118px, 36vw, 190px);
+  --wm-gap: clamp(0.85rem, 3.5vw, 1.3rem);
   position: relative;
   display: block;
   overflow: hidden;
   margin-left: clamp(-1.1rem, -3vw, -0.7rem);
   margin-right: clamp(-1.1rem, -3vw, -0.7rem);
-  padding: 0 var(--wm-pad);
-  min-height: var(--wm-closed-h);
   border-bottom: 1px solid rgba(233, 230, 221, 0.18);
   border-radius: 12px;
-  transition: min-height 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 0.5s ease;
+  transition: background-color 0.5s ease;
 }
 /* Selected row inverts to the warm cream (matches the site's invert motif). */
 .work-m.is-open {
-  min-height: var(--wm-open-h);
   background: var(--fg-dark);
   border-bottom-color: transparent;
 }
 
-/* Photo — absolute, on the LEFT, fills the full row height; slides in from the
-   right edge to its left slot. */
+/* Photo — flush to the left edge, no rounded corners, fills the full row
+   height; slides in from the right edge to its left slot. */
 .work-m__img {
   position: absolute;
-  left: var(--wm-pad);
+  left: 0;
   top: 0;
   bottom: 0;
   width: var(--wm-img-w);
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
-  transform: translateX(82vw);
+  transform: translateX(86vw);
   opacity: 0;
   transition: transform 0.72s cubic-bezier(0.34, 1.5, 0.5, 1),
     opacity 0.3s ease;
@@ -797,70 +791,68 @@ html.custom-cursor-active * {
   opacity: 1;
 }
 
-/* Closed label — the service name; fades out as the row opens. */
-.work-m__label {
-  display: flex;
-  align-items: center;
-  min-height: var(--wm-closed-h);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(1.5rem, 7vw, 2.4rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  transition: opacity 0.3s ease;
-}
-.work-m.is-open .work-m__label {
-  opacity: 0;
-}
-
-/* Open info — to the RIGHT of the photo; fades in after the photo lands. */
-.work-m__info {
-  position: absolute;
-  top: 50%;
-  right: clamp(0.9rem, 4vw, 1.5rem);
-  left: calc(var(--wm-pad) + var(--wm-img-w) + clamp(0.9rem, 4vw, 1.4rem));
+/* Body (in flow → drives the row height). Closed: full width. Open: padded
+   left so it sits to the right of the photo. */
+.work-m__body {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.35rem;
-  transform: translateY(-50%) translateX(18px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.45s ease 0.38s,
-    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.38s;
+  justify-content: center;
+  gap: 0.3rem;
+  min-height: clamp(3.4rem, 13vw, 4.8rem);
+  padding: clamp(0.7rem, 2.5vw, 1rem) clamp(0.5rem, 3vw, 1rem)
+    clamp(0.7rem, 2.5vw, 1rem) 0;
+  transition: padding 0.6s cubic-bezier(0.34, 1.3, 0.5, 1);
 }
-.work-m.is-open .work-m__info {
-  opacity: 1;
-  transform: translateY(-50%) translateX(0);
+.work-m.is-open .work-m__body {
+  padding-left: calc(var(--wm-img-w) + var(--wm-gap));
+  padding-top: clamp(0.9rem, 3.5vw, 1.3rem);
+  padding-bottom: clamp(0.9rem, 3.5vw, 1.3rem);
+  padding-right: clamp(0.9rem, 4vw, 1.4rem);
 }
-.work-m__infoName {
+.work-m__name {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(1.05rem, 4.5vw, 1.6rem);
+  font-size: clamp(1.4rem, 6.5vw, 2.3rem);
   line-height: 1.02;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
+  transition: color 0.5s ease, font-size 0.5s ease;
+}
+.work-m.is-open .work-m__name {
   color: var(--bg-dark);
 }
 .work-m__meta {
   font-family: var(--font-body);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(20, 17, 13, 0.6);
+  color: rgba(233, 230, 221, 0.6);
+  transition: color 0.5s ease;
+}
+.work-m.is-open .work-m__meta {
+  color: rgba(20, 17, 13, 0.62);
 }
 .work-m__explore {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.35rem;
+  max-height: 0;
+  margin-top: 0;
+  opacity: 0;
+  overflow: hidden;
   font-family: var(--font-body);
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--bg-dark);
+  transition: max-height 0.4s ease 0.25s, margin-top 0.4s ease 0.25s,
+    opacity 0.4s ease 0.3s;
+}
+.work-m.is-open .work-m__explore {
+  max-height: 3rem;
+  margin-top: 0.45rem;
+  opacity: 1;
 }
 .work-m__explore span {
   display: inline-flex;
