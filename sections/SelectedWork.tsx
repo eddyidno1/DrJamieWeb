@@ -100,8 +100,6 @@ export default function SelectedWork() {
             <Link
               key={p.name}
               href={`/services?service=${p.id}`}
-              target="_blank"
-              rel="noopener noreferrer"
               className={`work-m${openId === p.id ? " is-open" : ""}`}
               aria-expanded={openId === p.id}
               onClick={(e) => {
@@ -126,14 +124,17 @@ export default function SelectedWork() {
               className="work__row"
               href={`/services?service=${p.id}`}
               key={p.name}
-              target="_blank"
-              rel="noopener noreferrer"
               data-cursor="invert"
               onMouseEnter={() => show(p.img)}
               onMouseLeave={hide}
             >
               <span className="work__name">{p.name}</span>
-              <span className="work__meta">{p.meta}</span>
+              <span className="work__end">
+                <span className="work__meta">{p.meta}</span>
+                <span className="work__arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </span>
             </Link>
           )
         )}
